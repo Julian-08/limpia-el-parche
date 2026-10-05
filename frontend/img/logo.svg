@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Limpia El Parche">
+  <rect x="14" y="10" width="36" height="6" rx="2" fill="#2E8B57"/>
+  <rect x="26" y="5" width="12" height="6" rx="2" fill="#2E8B57"/>
+  <path d="M17 19h30l-3 38a4 4 0 0 1-4 3.6H24a4 4 0 0 1-4-3.6z" fill="#3DA35D"/>
+  <g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28 33l4-6 4 6"/>
+    <path d="M38.5 37.5l2.5 4.5h-7"/>
+    <path d="M25.5 37.5L23 42h7"/>
+    <path d="M32 27l-1.4 4.6M41 42l-3.6-3M23 42l4.4-2.2"/>
+  </g>
+</svg>

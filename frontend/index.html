@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Limpia El Parche · Mapa de calor de residuos en Bogotá</title>
+  <meta name="description" content="Reporta acumulación de basura en Bogotá y consulta el mapa de calor de zonas críticas.">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet (mapas OpenStreetMap) - ver CC-002 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-frame">
+
+    <!-- ===== Barra superior ===== -->
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Limpia El Parche, inicio">
+        <img src="img/logo.svg" alt="">
+        <span>Limpia<br>El Parche</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">Menú</button>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#inicio" data-vista="inicio">Home</a>
+        <a href="#mapa" data-vista="mapa" class="activo">Heat Map</a>
+        <a href="#reportar" data-vista="reportar">Report Trash</a>
+        <a href="admin.html">Admin Dashboard</a>
+      </nav>
+    </header>
+
+    <!-- ===== Vista: Inicio ===== -->
+    <section class="vista-inicio" id="vista-inicio" hidden>
+      <div class="inicio inicio-grid">
+        <div>
+          <h1>Reporta la basura de tu cuadra en menos de un minuto</h1>
+          <p class="lead">Cada reporte suma un punto al mapa de calor de Bogotá. Así la comunidad y las entidades de aseo
+            ven con claridad dónde se acumulan los residuos y pueden priorizar la recolección.</p>
+          <div class="inicio-acciones">
+            <a class="btn-primario" href="#reportar" role="button">Reportar basura</a>
+            <a class="btn-secundario" href="#mapa" role="button">Ver mapa de calor</a>
+          </div>
+          <div class="cifras" aria-live="polite">
+            <div class="cifra"><strong id="cifra-total">–</strong><span>reportes activos en el mapa</span></div>
+            <div class="cifra"><strong id="cifra-atendidos">–</strong><span>puntos ya atendidos</span></div>
+            <div class="cifra"><strong id="cifra-localidad">–</strong><span>localidad con más reportes</span></div>
+          </div>
+        </div>
+        <aside class="pasos">
+          <h2>Cómo hacer un reporte</h2>
+          <ol>
+            <li>Elige el tipo de residuo y describe lo que ves.</li>
+            <li>Marca el punto en el mapa o usa tu ubicación.</li>
+            <li>Si puedes, sube una foto como evidencia.</li>
+            <li>Revisa el resumen y confirma. Recibirás un código.</li>
+          </ol>
+          <div class="consulta">
+            <label for="codigo-consulta">Consulta el estado de tu reporte</label>
+            <div class="consulta-fila">
+              <input id="codigo-consulta" class="control" placeholder="LEP-20261005-A1B2" maxlength="20">
+              <button class="btn-primario" id="btn-consultar" type="button">Consultar</button>
+            </div>
+            <div class="resultado-consulta" id="resultado-consulta" aria-live="polite"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== Vista: Mapa de calor + formulario (mockup) ===== -->
+    <main class="vista-mapa" id="vista-mapa">
+      <div id="mapa-contenedor">
+        <div id="mapa-calor" aria-label="Mapa de calor de acumulación de residuos en Bogotá"></div>
+        <div class="cinta-demo" id="cinta-demo" hidden>Modo demostración: los reportes se guardan solo en este navegador</div>
+
+        <div class="leyenda" aria-hidden="true">
+          <h2>Acumulación trash</h2>
+          <div class="leyenda-cuerpo">
+            <div class="leyenda-barra"></div>
+            <ul><li>High</li><li>Medio</li><li>Bajo</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RF-001: formulario de registro de reporte -->
+      <aside class="tarjeta-reporte" id="tarjeta-reporte" aria-labelledby="titulo-form">
+        <h1 id="titulo-form">Registrar Reporte Ciudadano</h1>
+        <form id="form-reporte" novalidate>
+
+          <!-- RF-002: tipo de residuo -->
+          <div class="campo" id="campo-tipo">
+            <label for="tipo">Tipo de Residuo</label>
+            <select id="tipo" name="id_tipo" class="control" required>
+              <option value="">Cargando tipos…</option>
+            </select>
+            <div id="error-catalogo" class="aviso-error" hidden></div>
+            <span class="error" id="err-id_tipo"></span>
+          </div>
+
+          <!-- RF-002: descripción -->
+          <div class="campo" id="campo-descripcion">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" class="control" rows="2" maxlength="500"
+              placeholder="Agrega antecedentes, detalles..." required></textarea>
+            <span class="contador" id="contador">0 / 500</span>
+            <span class="error" id="err-descripcion"></span>
+          </div>
+
+          <!-- RF-003: ubicación -->
+          <div class="campo" id="campo-ubicacion">
+            <label for="ubicacion">Ubicación</label>
+            <div class="ubicacion-fila">
+              <input id="ubicacion" name="direccion" class="control" autocomplete="off"
+                placeholder="Tipea o selecciona en el mapa">
+              <button type="button" class="btn-gps" id="btn-gps" title="Usar mi ubicación actual" aria-label="Usar mi ubicación actual">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+              </button>
+            </div>
+            <div class="coords" id="coords"></div>
+            <span class="error" id="err-ubicacion"></span>
+          </div>
+
+          <!-- RF-004: evidencia fotográfica (opcional) -->
+          <div class="campo" id="campo-foto">
+            <input type="file" id="foto" name="foto" accept="image/jpeg,image/png" hidden>
+            <button type="button" class="btn-foto" id="btn-foto">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+              Subir Evidencia Fotográfica
+            </button>
+            <div class="foto-preview" id="foto-preview" hidden>
+              <img id="foto-mini" alt="Vista previa de la foto">
+              <span id="foto-nombre"></span>
+              <button type="button" id="btn-quitar-foto">Quitar</button>
+            </div>
+            <span class="error" id="err-foto"></span>
+          </div>
+
+          <!-- Campo trampa anti-spam (no visible para personas) -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">No llenar</label>
+            <input id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button type="submit" class="btn-primario" id="btn-enviar">Enviar Reporte</button>
+        </form>
+      </aside>
+    </main>
+  </div>
+
+  <!-- RF-006: resumen y confirmación -->
+  <dialog class="modal" id="modal-resumen" aria-labelledby="titulo-resumen">
+    <div class="modal-cuerpo">
+      <h2 id="titulo-resumen">Revisa tu reporte</h2>
+      <p class="sub">Confirma que la información es correcta antes de enviarla.</p>
+      <dl class="resumen" id="resumen"></dl>
+    </div>
+    <div class="modal-acciones">
+      <button type="button" class="btn-secundario" id="btn-cancelar">Cancelar</button>
+      <button type="button" class="btn-primario" id="btn-confirmar">Confirmar envío</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
