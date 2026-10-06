@@ -3,7 +3,7 @@
 Plataforma web para reportar acumulación de residuos sólidos en Bogotá y visualizar las zonas críticas en un mapa de calor.
 Proyecto de Ingeniería de Software · UNIMINUTO · NRC 10-84957 · Docente Sandra Consuelo Briceño López.
 
-Equipo: Joseph Farut Caicedo Valderrama, Julián David Barreto Medina, Sara Ximena Jerez Carrillo, Juan Manuel Sanabria Portillo y Santiago Mora.
+Equipo: Joseph Farut Caicedo Valderrama, Julián David Barreto Medina, Sara Ximena Jerez Carrillo y Juan Manuel Sanabria Portillo.
 
 ## Tecnologías
 
