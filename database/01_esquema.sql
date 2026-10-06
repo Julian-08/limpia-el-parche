@@ -135,7 +135,7 @@ ORDER BY total DESC;
 -- CATÁLOGO INICIAL
 -- ---------------------------------------------------------------------
 INSERT INTO tipo_residuo (nombre, descripcion, orden) VALUES
- ('Household Trash',  'Residuos domésticos ordinarios (bolsas de basura)', 1),
+ ('Basuras Domesticas',  'Residuos domésticos ordinarios (bolsas de basura)', 1),
  ('Reciclables',      'Plástico, cartón, vidrio y metal',                 2),
  ('Escombros',        'Residuos de construcción y demolición',            3),
  ('Voluminosos',      'Muebles, colchones, electrodomésticos',            4),
