@@ -4,7 +4,7 @@
 window.LEP_CONFIG = {
   // Si abres la página desde el servidor (http://localhost:3000) se usa la misma dirección.
   // Si la abres con Live Server u otro puerto, apunta al backend en el puerto 3000.
-  API_URL: location.port === '3000' ? '' : 'http://localhost:3000',
+  API_URL: 'https://limpia-el-parche.onrender.com',
 
   // true = funciona sin backend ni MySQL (datos de demostración guardados en el navegador).
   // Úsalo solo para mostrar el diseño; para las pruebas funcionales déjalo en false.
