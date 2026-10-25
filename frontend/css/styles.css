@@ -257,8 +257,10 @@ textarea.control { resize: vertical; min-height: 58px; }
 .consulta-fila .btn-primario { width: auto; margin: 0; padding: 8px 16px; }
 .resultado-consulta { font-size: 13px; margin-top: 10px; line-height: 1.5; }
 
-/* Pie de página de la vista inicio */
-.pie { background: var(--verde-oscuro); color: #fff; margin: 56px -64px -56px; padding: 40px 64px 28px; }
+/* Pie de página de la vista inicio: el contenido ocupa toda la pantalla
+   (alto del marco − barra superior − padding) para que el pie quede debajo y solo se vea al bajar */
+.vista-inicio .inicio { min-height: calc(100vh - 168px); }
+.pie { background: var(--verde-oscuro); color: #fff; margin: 120px -64px -56px; padding: 40px 64px 28px; }
 .pie a { color: #fff; }
 .pie a:hover { color: var(--verde-claro); }
 .pie h2 { margin: 0 0 6px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
@@ -348,7 +350,8 @@ dialog.modal::backdrop { background: rgba(17, 24, 39, .45); }
   .vista-inicio { padding: 32px 20px; }
   .inicio-grid { grid-template-columns: 1fr; gap: 32px; }
   .inicio h1 { font-size: 30px; }
-  .pie { margin: 32px -20px -32px; padding: 32px 20px 24px; }
+  .vista-inicio .inicio { min-height: calc(100vh - 96px); }
+  .pie { margin: 80px -20px -32px; padding: 32px 20px 24px; }
   .pie-grid { grid-template-columns: 1fr; gap: 8px; }
   .legal { padding: 24px 16px; }
   .legal-grid { grid-template-columns: 1fr; gap: 24px; }
