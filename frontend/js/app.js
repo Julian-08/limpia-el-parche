@@ -79,7 +79,9 @@
   }
 
   // Clic en el mapa -> selección manual (RF-003 A1/A2)
-  mapa.on('click', (e) => fijarUbicacion(e.latlng.lat, e.latlng.lng));
+  mapa.on('click', (e) => {
+    if (location.hash === '#reportar') fijarUbicacion(e.latlng.lat, e.latlng.lng);
+  });
 
   // ---------------------------------------------------------------
   //  Geocodificación con Nominatim (OpenStreetMap) - CC-002
@@ -329,6 +331,8 @@
     $('nav-toggle').setAttribute('aria-expanded', 'false');
 
     if (esInicio) { cargarResumen(); return; }
+    // En "Mapa de calor" solo se ve el mapa; el formulario aparece en "Reportar Basura"
+    $('tarjeta-reporte').hidden = vista !== 'reportar';
     setTimeout(() => mapa.invalidateSize(), 0);
     if (vista === 'reportar') {
       const tarjeta = $('tarjeta-reporte');
