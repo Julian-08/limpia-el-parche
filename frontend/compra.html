@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planes para empresas · Limpia El Parche</title>
+  <meta name="description" content="Adquiere Limpia El Parche para tu empresa (simulación de compra).">
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/compra.css?v=4">
+</head>
+<body>
+  <div class="app-frame">
+
+    <!-- ===== Barra superior ===== -->
+    <header class="topbar">
+      <a class="brand" href="index.html#inicio" aria-label="Limpia El Parche, inicio">
+        <img src="img/logo.svg" alt="">
+        <span>Limpia<br>El Parche</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">Menú</button>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#mapa">Mapa de calor</a>
+        <a href="index.html#reportar">Reportar Basura</a>
+        <a href="admin.html">Administrador</a>
+      </nav>
+    </header>
+
+    <main class="compra">
+      <div class="compra-cabecera">
+        <h1>Limpia El Parche para empresas</h1>
+        <p class="lead">Planes exclusivos para personas jurídicas: acceso al panel de datos, reportes por localidad y soporte para tu operación de aseo.</p>
+        <p class="cinta-simulacion">Simulación de compra: no se realiza ningún cobro y los datos no se envían ni se guardan.</p>
+      </div>
+
+      <!-- Pasos -->
+      <ol class="pasos-compra" id="pasos-compra" aria-label="Pasos de la compra">
+        <li class="activo" data-paso="1"><span>1</span>Plan</li>
+        <li data-paso="2"><span>2</span>Empresa</li>
+        <li data-paso="3"><span>3</span>Pago</li>
+        <li data-paso="4"><span>4</span>Confirmación</li>
+      </ol>
+
+      <div class="compra-grid">
+        <div class="compra-pasos">
+
+          <!-- ===== Paso 1: plan ===== -->
+          <section class="panel-compra" id="paso-1" aria-labelledby="titulo-paso-1">
+            <h2 id="titulo-paso-1">Elige tu plan</h2>
+            <div class="planes" id="planes" role="radiogroup" aria-label="Planes"></div>
+            <span class="error" id="err-plan"></span>
+            <div class="acciones-paso">
+              <a class="btn-secundario" href="index.html#inicio">Volver al inicio</a>
+              <button type="button" class="btn-primario" id="btn-paso-1">Continuar</button>
+            </div>
+          </section>
+
+          <!-- ===== Paso 2: datos de la empresa ===== -->
+          <section class="panel-compra" id="paso-2" aria-labelledby="titulo-paso-2" hidden>
+            <h2 id="titulo-paso-2">Datos de la empresa</h2>
+            <p class="sub">Esta compra solo está disponible para personas jurídicas. La factura se emitirá a nombre de la empresa.</p>
+            <form id="form-empresa" novalidate>
+              <div class="fila-2">
+                <div class="campo" id="campo-razon">
+                  <label for="razon">Razón social</label>
+                  <input id="razon" class="control" autocomplete="organization" maxlength="120" placeholder="Ej. Aseo Bogotá S.A.S.">
+                  <span class="error" id="err-razon"></span>
+                </div>
+                <div class="campo" id="campo-tipo-sociedad">
+                  <label for="tipo-sociedad">Tipo de sociedad</label>
+                  <select id="tipo-sociedad" class="control">
+                    <option value="">Selecciona…</option>
+                    <option>S.A.S.</option>
+                    <option>S.A.</option>
+                    <option>Ltda.</option>
+                    <option>Sociedad en comandita</option>
+                    <option>Empresa unipersonal (E.U.)</option>
+                    <option>Entidad sin ánimo de lucro</option>
+                    <option>Entidad pública</option>
+                  </select>
+                  <span class="error" id="err-tipo-sociedad"></span>
+                </div>
+              </div>
+
+              <div class="campo" id="campo-nit">
+                <label for="nit">NIT</label>
+                <div class="nit-fila">
+                  <input id="nit" class="control" inputmode="numeric" maxlength="10" placeholder="900123456" aria-describedby="ayuda-nit">
+                  <span aria-hidden="true">-</span>
+                  <input id="dv" class="control dv" inputmode="numeric" maxlength="1" placeholder="DV" aria-label="Dígito de verificación">
+                </div>
+                <small class="ayuda" id="ayuda-nit">Sin puntos. El dígito de verificación (DV) se valida con el algoritmo de la DIAN.</small>
+                <span class="error" id="err-nit"></span>
+              </div>
+
+              <h3>Representante legal</h3>
+              <div class="campo" id="campo-rep-nombre">
+                <label for="rep-nombre">Nombre completo</label>
+                <input id="rep-nombre" class="control" autocomplete="name" maxlength="120">
+                <span class="error" id="err-rep-nombre"></span>
+              </div>
+              <div class="fila-2">
+                <div class="campo" id="campo-rep-tipo-doc">
+                  <label for="rep-tipo-doc">Tipo de documento</label>
+                  <select id="rep-tipo-doc" class="control">
+                    <option value="CC">Cédula de ciudadanía</option>
+                    <option value="CE">Cédula de extranjería</option>
+                    <option value="PA">Pasaporte</option>
+                  </select>
+                </div>
+                <div class="campo" id="campo-rep-doc">
+                  <label for="rep-doc">Número de documento</label>
+                  <input id="rep-doc" class="control" inputmode="numeric" maxlength="15">
+                  <span class="error" id="err-rep-doc"></span>
+                </div>
+              </div>
+
+              <h3>Contacto y facturación</h3>
+              <div class="fila-2">
+                <div class="campo" id="campo-correo">
+                  <label for="correo">Correo de facturación</label>
+                  <input id="correo" type="email" class="control" autocomplete="email" maxlength="120" placeholder="facturacion@empresa.com">
+                  <span class="error" id="err-correo"></span>
+                </div>
+                <div class="campo" id="campo-telefono">
+                  <label for="telefono">Teléfono</label>
+                  <input id="telefono" type="tel" class="control" autocomplete="tel" inputmode="numeric" maxlength="10" placeholder="3101234567">
+                  <span class="error" id="err-telefono"></span>
+                </div>
+              </div>
+              <div class="fila-2">
+                <div class="campo" id="campo-direccion">
+                  <label for="direccion">Dirección</label>
+                  <input id="direccion" class="control" autocomplete="street-address" maxlength="150" placeholder="Calle 26 # 68 - 35">
+                  <span class="error" id="err-direccion"></span>
+                </div>
+                <div class="campo" id="campo-ciudad">
+                  <label for="ciudad">Ciudad</label>
+                  <input id="ciudad" class="control" autocomplete="address-level2" maxlength="60" value="Bogotá D.C.">
+                  <span class="error" id="err-ciudad"></span>
+                </div>
+              </div>
+
+              <div class="campo check" id="campo-juridica">
+                <label><input type="checkbox" id="juridica"> Declaro que actúo en nombre y representación de una persona jurídica.</label>
+                <span class="error" id="err-juridica"></span>
+              </div>
+              <div class="campo check" id="campo-politica">
+                <label><input type="checkbox" id="politica"> Acepto la <a href="legal.html#tratamiento-datos" target="_blank">Política de tratamiento de datos personales</a>.</label>
+                <span class="error" id="err-politica"></span>
+              </div>
+
+              <div class="acciones-paso">
+                <button type="button" class="btn-secundario" data-volver="1">Atrás</button>
+                <button type="submit" class="btn-primario">Continuar al pago</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ===== Paso 3: pago ===== -->
+          <section class="panel-compra" id="paso-3" aria-labelledby="titulo-paso-3" hidden>
+            <h2 id="titulo-paso-3">Pago con tarjeta</h2>
+            <p class="sub">Aceptamos únicamente tarjetas <strong>Visa</strong> y <strong>Mastercard</strong>.</p>
+            <form id="form-pago" novalidate autocomplete="off">
+              <div class="campo" id="campo-tarjeta">
+                <label for="tarjeta">Número de tarjeta</label>
+                <div class="tarjeta-fila">
+                  <input id="tarjeta" class="control" inputmode="numeric" maxlength="23" placeholder="0000 0000 0000 0000">
+                  <span class="marca" id="marca" aria-live="polite"></span>
+                </div>
+                <span class="error" id="err-tarjeta"></span>
+              </div>
+              <div class="campo" id="campo-titular">
+                <label for="titular">Nombre como aparece en la tarjeta</label>
+                <input id="titular" class="control" maxlength="60" style="text-transform: uppercase">
+                <span class="error" id="err-titular"></span>
+              </div>
+              <div class="fila-2">
+                <div class="campo" id="campo-vence">
+                  <label for="vence">Vencimiento</label>
+                  <input id="vence" class="control" inputmode="numeric" maxlength="5" placeholder="MM/AA">
+                  <span class="error" id="err-vence"></span>
+                </div>
+                <div class="campo" id="campo-cvv">
+                  <label for="cvv">CVV</label>
+                  <input id="cvv" class="control" type="password" inputmode="numeric" maxlength="3" placeholder="123">
+                  <span class="error" id="err-cvv"></span>
+                </div>
+              </div>
+              <div class="campo" id="campo-cuotas">
+                <label for="cuotas">Número de cuotas</label>
+                <select id="cuotas" class="control">
+                  <option>1</option><option>3</option><option>6</option><option>12</option><option>24</option><option>36</option>
+                </select>
+              </div>
+
+              <div class="acciones-paso">
+                <button type="button" class="btn-secundario" data-volver="2">Atrás</button>
+                <button type="submit" class="btn-primario" id="btn-pagar">Pagar</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ===== Paso 4: confirmación ===== -->
+          <section class="panel-compra" id="paso-4" aria-labelledby="titulo-paso-4" hidden>
+            <div class="exito-icono" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </div>
+            <h2 id="titulo-paso-4">¡Compra aprobada!</h2>
+            <p class="sub">Esta fue una simulación: no se realizó ningún cobro. Así se vería tu comprobante:</p>
+            <dl class="resumen comprobante" id="comprobante"></dl>
+            <div class="acciones-paso">
+              <button type="button" class="btn-secundario" id="btn-imprimir">Imprimir comprobante</button>
+              <a class="btn-primario" href="index.html#inicio">Volver al inicio</a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Resumen del pedido -->
+        <aside class="resumen-pedido" aria-labelledby="titulo-resumen-pedido">
+          <h2 id="titulo-resumen-pedido">Resumen del pedido</h2>
+          <div id="resumen-pedido"><p class="vacio">Aún no has elegido un plan.</p></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/compra.js?v=4"></script>
+</body>
+</html>

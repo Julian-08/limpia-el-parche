@@ -1,0 +1,91 @@
+/* =====================================================================
+   Simulación de compra para empresas
+   ===================================================================== */
+.compra { flex: 1; overflow-y: auto; padding: 40px 64px 56px; background: #f7f9fb; }
+.compra-cabecera { max-width: 1080px; margin-bottom: 24px; }
+.compra-cabecera h1 { font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; }
+.compra-cabecera .lead { font-size: 16px; color: var(--texto-suave); margin: 0 0 14px; max-width: 60ch; line-height: 1.5; }
+.cinta-simulacion { display: inline-block; margin: 0; background: #fff7d6; color: #7a5b00; font-size: 13px; padding: 6px 12px; border-radius: 20px; }
+
+/* Pasos */
+.pasos-compra { list-style: none; display: flex; gap: 8px; padding: 0; margin: 0 0 24px; max-width: 1080px; flex-wrap: wrap; }
+.pasos-compra li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--texto-tenue); flex: 1; min-width: 120px; padding-bottom: 10px; border-bottom: 3px solid var(--borde); }
+.pasos-compra li span { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 600; background: var(--borde); color: #fff; }
+.pasos-compra li.activo { color: var(--verde-oscuro); font-weight: 600; border-bottom-color: var(--verde); }
+.pasos-compra li.activo span, .pasos-compra li.hecho span { background: var(--verde); }
+.pasos-compra li.hecho { color: var(--texto-suave); border-bottom-color: #a7d8b6; }
+
+.compra-grid { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; max-width: 1080px; }
+.panel-compra { background: #fff; border: 1px solid #e8ebef; border-radius: 14px; padding: 24px; }
+.panel-compra h2 { margin: 0 0 6px; font-size: 20px; }
+.panel-compra h3 { margin: 22px 0 10px; font-size: 15px; color: var(--verde-oscuro); }
+.panel-compra .sub { margin: 0 0 18px; font-size: 14px; color: var(--texto-suave); }
+.panel-compra .control { font-size: 14px; padding: 10px 12px; }
+.panel-compra .campo label { font-size: 13px; }
+.fila-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.ayuda { display: block; font-size: 11.5px; color: var(--texto-tenue); margin-top: 4px; }
+
+.nit-fila { display: flex; align-items: center; gap: 8px; }
+.nit-fila .control { flex: 1; }
+.nit-fila .control.dv { flex: none; width: 64px; text-align: center; }
+
+.campo.check label { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; font-size: 13.5px; line-height: 1.45; }
+.campo.check input { margin-top: 3px; accent-color: var(--verde); }
+.campo.check a { color: var(--verde-oscuro); }
+
+.acciones-paso { display: flex; justify-content: space-between; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.acciones-paso .btn-primario { width: auto; margin: 0; padding: 11px 24px; }
+
+/* Planes */
+.planes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.plan { position: relative; display: flex; flex-direction: column; gap: 6px; border: 2px solid var(--borde); border-radius: 12px; padding: 18px 16px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.plan:hover { border-color: #a7d8b6; }
+.plan:has(input:checked) { border-color: var(--verde); box-shadow: 0 0 0 3px rgba(61, 163, 93, .18); background: var(--verde-claro); }
+.plan input { position: absolute; top: 16px; right: 14px; accent-color: var(--verde); }
+.plan strong { font-size: 17px; }
+.plan .precio { font-size: 20px; font-weight: 700; color: var(--verde-oscuro); }
+.plan .precio small { font-size: 12px; font-weight: 400; color: var(--texto-suave); }
+.plan ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--texto-suave); line-height: 1.6; }
+.plan.destacado { border-color: #a7d8b6; }
+.etiqueta-plan { align-self: flex-start; font-size: 11px; font-weight: 600; color: #fff; background: var(--verde); padding: 2px 8px; border-radius: 10px; }
+
+/* Tarjeta */
+.tarjeta-fila { position: relative; }
+.tarjeta-fila .control { padding-right: 120px; letter-spacing: .04em; }
+.marca { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+.marca:empty { display: none; }
+.marca.visa { background: #1a1f71; color: #fff; font-style: italic; letter-spacing: .06em; }
+.marca.mastercard { background: #fff; color: #1f2937; border: 1px solid var(--borde); padding-left: 30px; }
+.marca.mastercard::before, .marca.mastercard::after { content: ""; position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%; transform: translateY(-50%); }
+.marca.mastercard::before { left: 6px; background: #eb001b; }
+.marca.mastercard::after { left: 13px; background: #f79e1b; opacity: .9; }
+.marca.rechazada { background: #fdecea; color: var(--rojo); }
+
+/* Confirmación */
+.exito-icono { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--verde-claro); color: var(--verde-oscuro); margin-bottom: 12px; }
+.comprobante { grid-template-columns: 130px 1fr; font-size: 14px; background: #f7f9fb; border-radius: 10px; padding: 16px; }
+
+/* Resumen lateral */
+.resumen-pedido { position: sticky; top: 0; background: #fff; border: 1px solid #e8ebef; border-radius: 14px; padding: 20px; }
+.resumen-pedido h2 { margin: 0 0 14px; font-size: 16px; }
+.resumen-pedido .vacio { margin: 0; font-size: 13.5px; color: var(--texto-tenue); }
+.resumen-pedido .linea { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; padding: 6px 0; color: var(--texto-suave); }
+.resumen-pedido .linea.total { border-top: 1px solid var(--borde); margin-top: 6px; padding-top: 12px; font-size: 16px; font-weight: 700; color: var(--texto); }
+.para-empresa { margin: 14px 0 0; padding: 12px; background: var(--verde-claro); border-radius: 8px; font-size: 13px; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .compra { padding: 24px 16px 40px; }
+  .compra-cabecera h1 { font-size: 26px; }
+  .compra-grid { grid-template-columns: 1fr; }
+  .resumen-pedido { position: static; order: -1; }
+  .planes { grid-template-columns: 1fr; }
+  .fila-2 { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body { background: #fff; }
+  .topbar, .compra-cabecera, .pasos-compra, .resumen-pedido, .acciones-paso, .toast { display: none !important; }
+  .app-frame { box-shadow: none; height: auto; margin: 0; }
+  .compra { overflow: visible; padding: 0; background: #fff; }
+  .compra-grid { display: block; }
+}
