@@ -257,6 +257,20 @@ textarea.control { resize: vertical; min-height: 58px; }
 .consulta-fila .btn-primario { width: auto; margin: 0; padding: 8px 16px; }
 .resultado-consulta { font-size: 13px; margin-top: 10px; line-height: 1.5; }
 
+/* Pie de página de la vista inicio */
+.pie { background: var(--verde-oscuro); color: #fff; margin: 56px -64px -56px; padding: 40px 64px 28px; }
+.pie a { color: #fff; }
+.pie a:hover { color: var(--verde-claro); }
+.pie h2 { margin: 0 0 6px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.pie ul { list-style: none; margin: 0; padding: 0; }
+.pie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1080px; }
+.pie-contacto li { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+.pie-contacto svg { flex: none; }
+.pie-contacto a { font-size: 15px; }
+.pie-legal ul { margin: 0 0 24px 20px; }
+.pie-legal li { margin-bottom: 10px; font-size: 15px; }
+.pie-copy { margin: 8px 0 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .6); font-size: 13.5px; }
+
 /* ---------- Modal de confirmación (RF-006) ---------- */
 dialog.modal {
   border: 0; border-radius: 14px; padding: 0; width: min(440px, 92vw);
@@ -305,6 +319,8 @@ dialog.modal::backdrop { background: rgba(17, 24, 39, .45); }
   .vista-inicio { padding: 32px 20px; }
   .inicio-grid { grid-template-columns: 1fr; gap: 32px; }
   .inicio h1 { font-size: 30px; }
+  .pie { margin: 32px -20px -32px; padding: 32px 20px 24px; }
+  .pie-grid { grid-template-columns: 1fr; gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
